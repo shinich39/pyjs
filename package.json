@@ -1,0 +1,15 @@
+{
+  "name": "pyjs",
+  "version": "1.0.0",
+  "description": "Python wrapper.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "shinich39 <shinich39@gmail.com>",
+  "license": "MIT"
+}
