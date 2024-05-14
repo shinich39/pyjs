@@ -2,17 +2,18 @@
 
 import path from "node:path";
 import fs from "node:fs";
-import { spawn } from "node:child_process";
+import { spawn, execFile } from "node:child_process";
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const VENV_PATH = path.join(__dirname, "venv");
 const SCRIPTS_PATH = path.join(__dirname, "venv", "Scripts");
+const PYTHON_PATH = path.join(__dirname, "venv", "Scripts", "python.exe");
+const PIP_PATH = path.join(__dirname, "venv", "Scripts", "pip.exe");
 const ACTIVATE_PATH = path.join(__dirname, "venv", "Scripts", "activate.bat");
 const DEACTIVATE_APTH = path.join(__dirname, "venv", "Scripts", "deactivate.bat");
-const PIP_PATH = path.join(__dirname, "venv", "Scripts", "pip.exe");
 
-function E(filePath, args) {
+function S(filePath, args) {
   return new Promise(function(resolve, reject) {
     let stdout = "";
     let stderr = "";
@@ -37,52 +38,61 @@ function E(filePath, args) {
   });
 }
 
-async function install(modulePath) {
+function E(filePath, args) {
+  return new Promise(function(resolve, reject) {
+    execFile(filePath, args, function(err, stdout, stderr) {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve({ stdout, stderr });
+    });
+  });
+}
+
+async function venv(force) {
   // clear venv dir
-  if (fs.existsSync(VENV_PATH)) {
+  if (force && fs.existsSync(VENV_PATH)) {
     fs.rmSync(VENV_PATH, { force: true, recursive: true, });
   }
 
   // create venv dir
-  fs.mkdirSync(VENV_PATH);
+  if (!fs.existsSync(VENV_PATH)) {
+    fs.mkdirSync(VENV_PATH);
 
-  // create venv
-  await E("python", [
-    "-m",
-    "venv",
-    VENV_PATH,
-  ]);
-
-  // install to venv
-  await E(PIP_PATH, [
-    "install",
-    modulePath,
-  ]);
+    // create venv
+    await S("python", ["-m", "venv", VENV_PATH ]);
+  }
 }
 
-async function executeModule(moduleName, args) {
-  const modulePath = path.join(SCRIPTS_PATH, `${moduleName}.exe`);
-  
-  if (!fs.existsSync(modulePath)) {
-    throw new Error(`${moduleName} not installed.`);
+async function install(modulePath) {
+  if (!fs.existsSync(VENV_PATH)) {
+    throw new Error(`${VENV_PATH} not exists.`);
+  }
+  if (!fs.existsSync(SCRIPTS_PATH)) {
+    throw new Error(`${SCRIPTS_PATH} not exists.`);
+  }
+  if (!fs.existsSync(PIP_PATH)) {
+    throw new Error(`${PIP_PATH} not exists.`);
   }
 
-  // execute module in venv
-  const result = await E(modulePath, args || []);
-
-  return result;
+  // install to venv
+  await S(PIP_PATH, ["install", modulePath, ]);
 }
 
-async function executeScript(scriptPath, args) {
-  // execute python script
-  const result = await E("python", [scriptPath].concat(args || []));
-
-  return result;
+// execute python script
+async function execute(scriptPath, args) {
+  if (fs.existsSync(PYTHON_PATH)) {
+    return await S(PYTHON_PATH, [scriptPath].concat(args || []));
+  } else {
+    return await S("python", [scriptPath].concat(args || []));
+  }
 }
 
 // esm
 export default {
+  venv,
   install,
-  module: executeModule,
-  script: executeScript,
+  execute,
+  exec: execute,
 }

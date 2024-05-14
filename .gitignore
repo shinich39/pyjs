@@ -512,3 +512,6 @@ Dependencies/
 
 
 # End of https://www.toptal.com/developers/gitignore/api/node,react,reactnative,android,java,swift,objective-c
+
+venv/
+!test/*
