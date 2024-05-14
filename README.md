@@ -1,6 +1,6 @@
 # pyjs
 
-Python wrapper.
+Wrapping python for javascript.
 
 ## Usage
 

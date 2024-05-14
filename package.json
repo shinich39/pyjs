@@ -1,7 +1,7 @@
 {
   "name": "pyjs",
   "version": "1.0.0",
-  "description": "Python wrapper.",
+  "description": "Wrapping python for javascript.",
   "main": "index.js",
   "type": "module",
   "scripts": {
