@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 from transparent_background import Remover
 
-def main():
+def main(*args):
   # Load model
   remover = Remover(mode='fast')
   
@@ -33,4 +33,4 @@ def main():
 #   sys.exit(0)
 
 if __name__ == '__main__':
-  main()
+  main(*sys.argv[1:])

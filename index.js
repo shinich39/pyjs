@@ -45,7 +45,7 @@ function E(filePath, args) {
         reject(err);
         return;
       }
-      resolve({ stdout, stderr });
+      resolve({stdout, stderr});
     });
   });
 }
@@ -61,11 +61,11 @@ async function venv(force) {
     fs.mkdirSync(VENV_PATH);
 
     // create venv
-    await S("python", ["-m", "venv", VENV_PATH ]);
+    return await S("python", ["-m", "venv", VENV_PATH ]);
   }
 }
 
-async function install(modulePath) {
+async function install(modulePath, args) {
   if (!fs.existsSync(VENV_PATH)) {
     throw new Error(`${VENV_PATH} not exists.`);
   }
@@ -77,7 +77,7 @@ async function install(modulePath) {
   }
 
   // install to venv
-  await S(PIP_PATH, ["install", modulePath, ]);
+  return await S(PIP_PATH, ["install", modulePath].concat(args || []));
 }
 
 // execute python script
