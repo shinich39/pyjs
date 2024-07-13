@@ -13,7 +13,6 @@ var pyjs = (function (exports, path, fs, node_child_process) {
         return [null, null, null, null];
       }
     })();
-
   function isWin() {
     return process.platform === "win32";
   }
@@ -162,7 +161,7 @@ var pyjs = (function (exports, path, fs, node_child_process) {
    */
   Py.prototype.install = async function (moduleName, args) {
     const res = await S(
-      this.getPyCmd(),
+      this.getPipCmd(),
       ["install", moduleName].concat(args || []),
     );
 
@@ -174,16 +173,14 @@ var pyjs = (function (exports, path, fs, node_child_process) {
    * @returns {Promise<boolean>}
    */
   Py.prototype.isInstalled = async function (moduleName) {
-    const { stdout, stderr } = await this.freeze();
-    // console.log(`stdout: ${stdout}`);
-    // console.log(`stderr: ${stderr}`);
+    const modules = await this.getModules();
 
-    const lines = stdout.replace(/\r\n/g, "\n").split(/\n/);
-    for (const line of lines) {
-      if (line.indexOf(moduleName) === 0) {
+    for (const m of modules) {
+      if (m.name.indexOf(moduleName) === 0) {
         return true;
       }
     }
+
     return false;
   };
   /**

@@ -16,7 +16,6 @@ const [PYTHON_FILENAME, PYTHON_COMMAND, PIP_FILENAME, PIP_COMMAND] =
       return [null, null, null, null];
     }
   })();
-
 function isWin() {
   return process.platform === "win32";
 }
@@ -165,7 +164,7 @@ Py.prototype.getModules = async function () {
  */
 Py.prototype.install = async function (moduleName, args) {
   const res = await S(
-    this.getPyCmd(),
+    this.getPipCmd(),
     ["install", moduleName].concat(args || []),
   );
 
@@ -177,16 +176,14 @@ Py.prototype.install = async function (moduleName, args) {
  * @returns {Promise<boolean>}
  */
 Py.prototype.isInstalled = async function (moduleName) {
-  const { stdout, stderr } = await this.freeze();
-  // console.log(`stdout: ${stdout}`);
-  // console.log(`stderr: ${stderr}`);
+  const modules = await this.getModules();
 
-  const lines = stdout.replace(/\r\n/g, "\n").split(/\n/);
-  for (const line of lines) {
-    if (line.indexOf(moduleName) === 0) {
+  for (const m of modules) {
+    if (m.name.indexOf(moduleName) === 0) {
       return true;
     }
   }
+
   return false;
 };
 /**
