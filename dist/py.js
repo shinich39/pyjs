@@ -62,7 +62,8 @@ var pyjs = (function (exports, path, fs, node_child_process) {
      * @param {string} installPath default "."
      */
     constructor(installPath) {
-      this.__installPath__ = installPath || ".";
+      installPath = installPath || ".";
+      this.__installPath__ = installPath;
       this.__venvPath__ = path.join(installPath, "venv");
       this.__scriptsPath__ = path.join(installPath, "venv", "Scripts");
       this.__pythonPath__ = path.join(
