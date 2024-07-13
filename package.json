@@ -1,0 +1,21 @@
+{
+  "name": "pyjs",
+  "version": "1.0.0",
+  "description": "Javascript module builder.",
+  "main": "/dist/py.mjs",
+  "type": "module",
+  "scripts": {
+    "test": "node ./test/index.js",
+    "pretty": "prettier ./src --write --config .prettierrc.js",
+    "build": "rollup --config"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "shinich39 <shinich39@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^3.3.2",
+    "rollup": "^4.18.1"
+  }
+}
