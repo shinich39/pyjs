@@ -1,4 +1,5 @@
 # Ignore artifacts:
+test
 
 # Ignore all HTML files:
 **/*.html
