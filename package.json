@@ -2,7 +2,7 @@
   "name": "py-js",
   "version": "1.0.0",
   "description": "Create a python wrapper with js.",
-  "main": "/dist/py.mjs",
+  "main": "/src/index.js",
   "type": "module",
   "scripts": {
     "test": "node ./test/index.js",
