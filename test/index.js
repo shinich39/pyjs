@@ -1,4 +1,4 @@
-import { Py } from "../index.js";
+import { Py } from "../dist/py.mjs";
 
 const MODULE_NAME = "python-resize-image";
 const SCRIPT_PATH_1 = "./test/src/script.py";

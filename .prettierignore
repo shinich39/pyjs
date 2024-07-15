@@ -1,5 +1,5 @@
 # Ignore artifacts:
-# test
+dist
 
 # Ignore all HTML files:
 # **/*.html
