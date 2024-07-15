@@ -2,9 +2,9 @@ import pkg from "./package.json" assert { type: "json" };
 import fs from "node:fs";
 
 function camelize(str) {
-  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
-    return index === 0 ? word.toLowerCase() : word.toUpperCase();
-  }).replace(/\s+/g, '');
+	return str.replace(/[_.-](\w|$)/g, function (_, x) {
+		return x.toUpperCase();
+	});
 }
 
 const MODULE_NAME = pkg.name

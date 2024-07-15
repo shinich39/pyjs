@@ -1,4 +1,4 @@
-var pyjs = (function (exports, path, fs, node_child_process) {
+var py = (function (exports, path, fs, node_child_process) {
   'use strict';
 
   const [PYTHON_FILENAME, PYTHON_COMMAND, PIP_FILENAME, PIP_COMMAND] =

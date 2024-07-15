@@ -1,7 +1,7 @@
 {
-  "name": "pyjs",
+  "name": "py-js",
   "version": "1.0.0",
-  "description": "Javascript module builder.",
+  "description": "Create a python wrapper with js.",
   "main": "/dist/py.mjs",
   "type": "module",
   "scripts": {

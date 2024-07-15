@@ -1,4 +1,4 @@
-# pyjs
+# py-js
 
 Create a python wrapper with js.
 
@@ -10,7 +10,7 @@ Create a python wrapper with js.
 ## Usage
 
 ```js
-import { Py } from "pyjs";
+import { Py } from "py-js";
 
 (async function () {
   // current directory
