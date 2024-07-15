@@ -1,4 +1,4 @@
-import { Py } from "../src/index.js";
+import { Py } from "../index.js";
 
 const MODULE_NAME = "python-resize-image";
 const SCRIPT_PATH_1 = "./test/src/script.py";
@@ -14,7 +14,7 @@ const SCRIPT_PATH_2 = "./test/src/script-example.py";
   await py.getModules(); // get installed modules
 
   // execute python script with installed module
-  (async function() {
+  (async function () {
     await py.install("pillow"); // install module in venv
     console.log(await py.isInstalled(MODULE_NAME));
     console.log(await py.isInstalled("pillow"));
@@ -24,7 +24,7 @@ const SCRIPT_PATH_2 = "./test/src/script-example.py";
   })();
 
   // execute python script and return value
-  (async function() {
+  (async function () {
     const { stdout, stderr } = await py.exec(SCRIPT_PATH_2);
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);

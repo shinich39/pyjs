@@ -2,11 +2,11 @@
   "name": "py-js",
   "version": "1.0.0",
   "description": "Create a python wrapper with js.",
-  "main": "/src/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "node ./test/index.js",
-    "pretty": "prettier ./src --write --config .prettierrc.js",
+    "pretty": "prettier . --write --config .prettierrc.js",
     "build": "rollup --config"
   },
   "keywords": [
